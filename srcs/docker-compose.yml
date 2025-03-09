@@ -1,0 +1,22 @@
+version: '3'
+
+networks:
+  inception:
+    name: inception
+
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:42
+    build: ./requirements/mariadb/.
+    env_file: .env
+    restart: always
+    networks:
+      - inception
+
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx/.
+
+    networks:
+      - inception

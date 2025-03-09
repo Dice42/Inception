@@ -1,0 +1,3 @@
+FROM wordpress
+
+/*without nginx*/
