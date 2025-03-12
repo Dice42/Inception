@@ -1,6 +1,6 @@
 FROM alpine:3.20
 
-RUN apk update && apk add mariadb mariadb-client openrc
+RUN apk update && apk add --no-cache mariadb mariadb-client openrc
 
 EXPOSE 3306
 

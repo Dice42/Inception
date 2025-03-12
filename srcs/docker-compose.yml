@@ -1,4 +1,4 @@
-version: '3'
+# version: '3.8'
 
 networks:
   inception:
@@ -7,16 +7,34 @@ networks:
 services:
   mariadb:
     container_name: mariadb
-    image: mariadb:42
     build: ./requirements/mariadb/.
     env_file: .env
-    restart: always
+    restart: on-failure
     networks:
       - inception
 
+    
   nginx:
     container_name: nginx
     build: ./requirements/nginx/.
+    env_file: .env
+    restart: on-failure
+    depends_on:
+        - wordpress
+    ports:
+      - 443:443
+    networks:
+      - inception
 
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress/.
+    env_file:
+      - .env
+    depends_on:
+        - mariadb
+    ports:
+      - 9000:9000
+    restart: on-failure
     networks:
       - inception

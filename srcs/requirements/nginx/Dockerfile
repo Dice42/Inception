@@ -1,6 +1,6 @@
 FROM alpine:3.20
 
-RUN apk update && apk add nginx 
+RUN apk update && apk add --no-cache nginx openssl
 
 RUN mkdir -p /data/www
 
@@ -12,6 +12,7 @@ COPY tools/entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 
-EXPOSE 8080
+EXPOSE 443
 
-ENTRYPOINT [ "/entrypoint.sh" ]
+CMD [ "/entrypoint.sh" ]
+

@@ -6,9 +6,9 @@ rc-service mariadb start
 
 echo "CREATE DATABASE IF NOT EXISTS $MARIADB_NAME;" > md.file
 echo "CREATE USER IF NOT EXISTS '$MARIADB_USER'@'%' IDENTIFIED BY '$MARIADB_PWD' ;" >> md.file
-echo "GRANT ALL PRIVILEGES ON $MARIADB_NAME.* TO '$MARIADB_USER'@'%' ;" >> md.file
+echo "GRANT ALL PRIVILEGES ON $MARIADB_NAME.* TO '$MARIADB_USER'@'localhost' ;" >> md.file
 echo "FLUSH PRIVILEGES;" >> md.file
-echo "ALTER USER '$MARIADB_ROOT_USER'@'localhost' IDENTIFIED BY '$MARIADB_ROOT_PASS';" >> md.file
+# echo "ALTER USER '$MARIADB_ROOT_USER'@'localhost' IDENTIFIED BY '$MARIADB_ROOT_PASS';" >> md.file
 
 mariadb < md.file
 
