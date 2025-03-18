@@ -10,19 +10,8 @@ services:
     build: ./requirements/mariadb/.
     env_file: .env
     restart: on-failure
-    networks:
-      - inception
-
-    
-  nginx:
-    container_name: nginx
-    build: ./requirements/nginx/.
-    env_file: .env
-    restart: on-failure
-    depends_on:
-        - wordpress
     ports:
-      - 443:443
+      - 3306:3306
     networks:
       - inception
 
@@ -38,3 +27,17 @@ services:
     restart: on-failure
     networks:
       - inception
+    
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx/.
+    env_file: .env
+    restart: on-failure
+    depends_on:
+        - wordpress
+    ports:
+      - 443:443
+    networks:
+      - inception
+
+  

@@ -1,5 +1,5 @@
 #!/bin/sh
-
+# sleep 5
 wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
@@ -30,10 +30,3 @@ wp --allow-root --path=/var/www/html/wordpress core install \
 if [ -f /var/www/html/wordpress/wp-config.php ]; then
 	php-fpm83 --nodaemonize
 fi
-
-wp --allow-root --path=/var/www/html/wordpress core install  --url='mohammoh.42.fr' --title='WordPress' --skip-email --admin_email="dice@dice.com" --admin_user="dice" --admin_password="Dice@1234"
-
-# sed -i "s/'database_name_here'/'dicedb'/g" wp-config.php
-# sed -i "s/'username_here'/'dice'/g" wp-config.php
-# sed -i "s/'password_here'/'dice42'/g" wp-config.php
-# sed -i "s/'localhost'/'mariadb'/g" wp-config.php
