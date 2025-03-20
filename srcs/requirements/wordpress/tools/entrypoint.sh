@@ -16,13 +16,13 @@ sed -i "s/'username_here'/'$MARIADB_USER'/g" wp-config.php
 sed -i "s/'password_here'/'$MARIADB_PWD'/g" wp-config.php
 sed -i "s/'localhost'/'mariadb'/g" wp-config.php
 
-sed -i "s|listen = 127.0.0.1:9000|listen = 9000|g" /etc/php83/php-fpm.d/www.conf
+sed -i "s|listen = 127.0.0.1:9000|listen = 0.0.0.0:9000|g" /etc/php83/php-fpm.d/www.conf
 
 echo 'listen.owner = nobody' >> /etc/php83/php-fpm.d/www.conf
 echo 'listen.group = nobody' >> /etc/php83/php-fpm.d/www.conf
 
 wp --allow-root --path=/var/www/html/wordpress core install \
-    --url='mohammoh.42.fr' --title='WordPress' \
+    --url='http://localhost' --title='WordPress' \
     --skip-email --admin_email="${WP_EMAIL}" \
     --admin_user="$WP_USER" \
     --admin_password="$WP_PASS"
@@ -30,3 +30,4 @@ wp --allow-root --path=/var/www/html/wordpress core install \
 if [ -f /var/www/html/wordpress/wp-config.php ]; then
 	php-fpm83 --nodaemonize
 fi
+

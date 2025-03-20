@@ -4,6 +4,11 @@ networks:
   inception:
     name: inception
 
+volumes:
+  wordpress:
+  mariadb:
+
+
 services:
   mariadb:
     container_name: mariadb
@@ -27,6 +32,8 @@ services:
     restart: on-failure
     networks:
       - inception
+    volumes:
+      - wordpress:/var/www/html
     
   nginx:
     container_name: nginx
@@ -39,5 +46,6 @@ services:
       - 443:443
     networks:
       - inception
-
-  
+    volumes:
+      - wordpress:/var/www/html
+      # - ./requirements/nginx/ssl:/etc/ssl

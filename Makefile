@@ -1,0 +1,16 @@
+up:
+	cd srcs && docker compose up -d
+
+down:
+	cd srcs && docker compose down
+
+build:
+	cd srcs && docker compose build
+
+clean:
+	docker rmi -f $(shell docker images -q)
+
+re: down clean up
+
+logs:
+	cd srcs && docker compose logs -f
