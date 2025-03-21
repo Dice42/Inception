@@ -5,8 +5,15 @@ chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 mkdir -p /var/www/html/wordpress
 cd /var/www/html/wordpress
+
+#redis
+wget https://assets.digitalocean.com/articles/wordpress_redis/object-cache.php
+mv object-cache.php /var/www/html/wordpress/wp-content/
+#
+
 # wp --allow-root core download --force 
 php -d memory_limit=512M /usr/local/bin/wp --allow-root core download --force
+
 
 chmod 777 -R /var/www/html/wordpress
 mv wp-config-sample.php wp-config.php
@@ -18,6 +25,10 @@ sed -i "s/'localhost'/'mariadb'/g" wp-config.php
 
 sed -i "s|listen = 127.0.0.1:9000|listen = 0.0.0.0:9000|g" /etc/php83/php-fpm.d/www.conf
 
+#for redis
+echo 'define('WP_CACHE_KEY_SALT', '127.0.0.1');' >> /var/www/html/wordpress/wp-config.php 
+echo 'define('WP_CACHE', true);' >> /var/www/html/wordpress/wp-config.php
+ 
 echo 'listen.owner = nobody' >> /etc/php83/php-fpm.d/www.conf
 echo 'listen.group = nobody' >> /etc/php83/php-fpm.d/www.conf
 
