@@ -9,10 +9,10 @@ down:
 build:
 	cd srcs && docker compose build
 
-clean:
+clean: down
 	docker rmi -f $(shell docker images -q)
 
-re: down clean up
+re: clean up
 
 logs:
 	cd srcs && docker compose logs -f

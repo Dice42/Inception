@@ -22,10 +22,15 @@ echo 'listen.owner = nobody' >> /etc/php83/php-fpm.d/www.conf
 echo 'listen.group = nobody' >> /etc/php83/php-fpm.d/www.conf
 
 wp --allow-root --path=/var/www/html/wordpress core install \
-    --url='http://localhost' --title='WordPress' \
-    --skip-email --admin_email="${WP_EMAIL}" \
+    --url='mohammoh.42.fr' --title='WordPress' \
+    --skip-email --admin_email="$WP_EMAIL" \
     --admin_user="$WP_USER" \
     --admin_password="$WP_PASS"
+
+wp --allow-root --path=/var/www/html/wordpress user create \
+    $WP_USER2 $WP_EMAIL2 --role=subscriber \
+    --user_pass="$WP_PASS2"
+
 
 if [ -f /var/www/html/wordpress/wp-config.php ]; then
 	php-fpm83 --nodaemonize

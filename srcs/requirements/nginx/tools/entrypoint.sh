@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 if [ ! -f /etc/self-signed.crt ]; then
     openssl \
         req -x509 \
