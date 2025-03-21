@@ -1,4 +1,5 @@
-up:
+
+up: 
 	mkdir -p /home/${USER}/data/mariadb
 	mkdir -p /home/${USER}/data/wordpress
 	cd srcs && docker compose up -d
@@ -16,3 +17,9 @@ re: clean up
 
 logs:
 	cd srcs && docker compose logs -f
+
+fclean:
+	- yes | docker system prune -a --volumes
+	- rm -rf /home/${USER}/data
+
+.PHONY: up down build clean re logs 
