@@ -10,7 +10,7 @@ build:
 	cd srcs && docker compose build
 
 clean: down
-	docker rmi -f $(shell docker images -q)
+	-docker rmi -f $(shell docker images -q)
 
 re: clean up
 

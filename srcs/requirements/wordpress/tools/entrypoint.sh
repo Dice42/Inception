@@ -22,7 +22,7 @@ echo 'listen.owner = nobody' >> /etc/php83/php-fpm.d/www.conf
 echo 'listen.group = nobody' >> /etc/php83/php-fpm.d/www.conf
 
 wp --allow-root --path=/var/www/html/wordpress core install \
-    --url='mohammoh.42.fr' --title='WordPress' \
+    --url='http://localhost' --title='WordPress' \
     --skip-email --admin_email="$WP_EMAIL" \
     --admin_user="$WP_USER" \
     --admin_password="$WP_PASS"
