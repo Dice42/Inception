@@ -12,7 +12,14 @@ build:
 clean: down
 	docker rmi -f $(shell docker images -q)
 
-re: clean up
-
 logs:
 	cd srcs && docker compose logs -f
+
+re: clean up
+
+fclean: clean
+	-rm -rf /home/${USER}/data
+	
+flush:
+	yes | docker system prune -a --volumes 
+
