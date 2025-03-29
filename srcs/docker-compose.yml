@@ -20,6 +20,8 @@ volumes:
 secrets:
   mariadb_password:
     file: ../secrets/mariadb_password
+  mariadb_root_password:
+    file: ../secrets/mariadb_root_password
   wp_password:
     file: ../secrets/wp_password
   wp_user2_password:
@@ -49,6 +51,7 @@ services:
       - wp_password
       - wp_user2_password
       - mariadb_password
+      - mariadb_root_password
     depends_on:
         - mariadb
     ports:

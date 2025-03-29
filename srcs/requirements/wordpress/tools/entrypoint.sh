@@ -11,6 +11,11 @@ php -d memory_limit=512M /usr/local/bin/wp --allow-root core download --force
 chmod 777 -R /var/www/html/wordpress
 mv wp-config-sample.php wp-config.php
 
+# Read password from Docker secret
+MARIADB_PWD=$(cat /run/secrets/mariadb_password)
+WP_PASS=$(cat /run/secrets/wp_password)
+WP_PASS2=$(cat /run/secrets/wp_user2_password)
+
 sed -i "s/'database_name_here'/'$MARIADB_NAME'/g" wp-config.php
 sed -i "s/'username_here'/'$MARIADB_USER'/g" wp-config.php
 sed -i "s/'password_here'/'$MARIADB_PWD'/g" wp-config.php
