@@ -1,3 +1,5 @@
+all: up logs 
+
 up:
 	mkdir -p /home/${USER}/data/mariadb
 	mkdir -p /home/${USER}/data/wordpress
@@ -12,14 +14,13 @@ build:
 clean: down
 	docker rmi -f $(shell docker images -q)
 
+re: clean up
+
 logs:
 	cd srcs && docker compose logs -f
 
-re: clean up
+fclean:
+	- yes | docker system prune -a --volumes
+	- rm -rf /home/${USER}/data
 
-fclean: clean
-	-rm -rf /home/${USER}/data
-	
-flush:
-	yes | docker system prune -a --volumes 
-
+.PHONY: up down build clean re logs 

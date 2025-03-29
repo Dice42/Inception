@@ -2,7 +2,7 @@ FROM alpine:3.20
 
 RUN apk update && apk add --no-cache nginx openssl
 
-COPY tools/nginx.conf /etc/nginx/nginx.conf
+COPY conf/nginx.conf /etc/nginx/nginx.conf
 
 COPY tools/entrypoint.sh /entrypoint.sh
 

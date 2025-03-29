@@ -4,11 +4,15 @@
 
 rc-service mariadb start
 
+# Read password from Docker secret
+MARIADB_PWD=$(cat /run/secrets/mariadb_password)
+MARIADB_ROOT_PWD=$(cat /run/secrets/mariadb_root_password)
+
 echo "CREATE DATABASE IF NOT EXISTS $MARIADB_NAME;" > md.file
 echo "CREATE USER IF NOT EXISTS '$MARIADB_USER'@'%' IDENTIFIED BY '$MARIADB_PWD' ;" >> md.file
 echo "GRANT ALL PRIVILEGES ON $MARIADB_NAME.* TO '$MARIADB_USER'@'%' ;" >> md.file
 echo "FLUSH PRIVILEGES;" >> md.file
-
+echo "ALTER USER '$MARIADB_ROOT_USER'@'%' IDENTIFIED BY '$MARIADB_ROOT_PWD';" >> md.file
 mariadb < md.file
 
 sed -i 's/skip-networking/#skip-networking/g' /etc/my.cnf.d/mariadb-server.cnf
