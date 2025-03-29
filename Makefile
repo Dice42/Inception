@@ -1,5 +1,6 @@
+all: up logs 
 
-up: 
+up:
 	mkdir -p /home/${USER}/data/mariadb
 	mkdir -p /home/${USER}/data/wordpress
 	cd srcs && docker compose up -d

@@ -17,11 +17,21 @@ volumes:
       type: none
       device: /home/$USER/data/mariadb
 
+secrets:
+  mariadb_password:
+    file: ../secrets/mariadb_password
+  wp_password:
+    file: ../secrets/wp_password
+  wp_user2_password:
+    file: ../secrets/wp_user2_password
+
 services:
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb/.
     env_file: .env
+    secrets:
+      - mariadb_password
     restart: on-failure
     ports:
       - 3306:3306
@@ -35,6 +45,10 @@ services:
     build: ./requirements/wordpress/.
     env_file:
       - .env
+    secrets:
+      - wp_password
+      - wp_user2_password
+      - mariadb_password
     depends_on:
         - mariadb
     ports:
@@ -58,6 +72,3 @@ services:
       - inception
     volumes:
       - /home/$USER/data/wordpress:/var/www/html
-    
-
-
