@@ -3,6 +3,7 @@ all: up logs
 up:
 	mkdir -p /home/${USER}/data/mariadb
 	mkdir -p /home/${USER}/data/wordpress
+	mkdir -p /home/${USER}/data/redis
 	cd srcs && docker compose up -d
 
 down:

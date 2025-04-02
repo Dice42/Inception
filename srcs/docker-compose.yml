@@ -17,6 +17,12 @@ volumes:
       type: none
       device: /home/$USER/data/mariadb
 
+  redis:
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/$USER/data/redis
+
 secrets:
   mariadb_password:
     file: ../secrets/mariadb_password
@@ -54,13 +60,14 @@ services:
       - mariadb_root_password
     depends_on:
         - mariadb
+        - redis
     ports:
       - 9000:9000
     restart: on-failure
     networks:
       - inception
     volumes:
-      - /home/$USER/data//home/$USER/data/wordpress:/var/www/html
+      - /home/$USER/data/wordpress:/var/www/html
     
   nginx:
     container_name: nginx
@@ -75,3 +82,14 @@ services:
       - inception
     volumes:
       - /home/$USER/data/wordpress:/var/www/html
+
+  redis:
+    container_name: redis
+    build: ./requirements/bonus/redis
+    restart: on-failure
+    ports:
+      - 6379:6379
+    networks:
+      - inception
+    volumes:
+      - /home/$USER/data/redis:/data
