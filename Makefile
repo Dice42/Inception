@@ -21,6 +21,6 @@ logs:
 
 fclean:
 	- yes | docker system prune -a --volumes
-	- rm -rf /home/${USER}/data
+	- sudo rm -rf /home/${USER}/data
 
 .PHONY: up down build clean re logs 
